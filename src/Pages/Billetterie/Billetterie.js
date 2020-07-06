@@ -12,6 +12,8 @@ import { useHistory } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import axios from "axios";
+import { useSelector } from 'react-redux';
+import DataEvent from '../../Data/DataEvent';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -58,8 +60,27 @@ export const Billetterie = () => {
     React.useEffect(() => {
         setLabelWidth(inputLabel.current.offsetWidth);
     }, []);
-    const event = JSON.parse(localStorage.getItem("Organisation"));
-    const panier = JSON.parse(localStorage.getItem("persist:root"));
+    const events = JSON.parse(localStorage.getItem("Organisation"));
+    const menus = useSelector((state) => state.menu.addedItems.id);
+    const prestataires = useSelector((state) => state.prestataire.addedItems);
+    const lieux = useSelector((state) => state.lieux.addedItems);
+    const produits = useSelector((state) => state.produit.addedItems);
+    const participants = JSON.parse(localStorage.getItem("participants"));
+    const [produit, setProduit] = React.useState([]);
+    const [lieu, setLieu] = React.useState([]);
+    const [menu, setMenu] = React.useState([]);
+    React.useEffect(() => {
+        produits != null ? produits.map(item => 
+            setProduit(prevState => [...prevState, { quantite: item.id, produitId: item.id }])
+        ) : setProduit(null);
+        menus != null ? menus.map(item =>
+            setMenu(prevState => [...prevState, { quantite: item.id, menuId: item.id }])
+        ) : setMenu(null);
+        lieux != null ? lieux.map(item =>
+            setLieu(prevState => [...prevState, { quantite: item.id, lieuxId: item.id }])
+        ) : setLieu(null);
+    }, [])
+    console.log(JSON.stringify(produit));
     return (
     <div>
     <AppBar />
@@ -68,6 +89,7 @@ export const Billetterie = () => {
     </div>
     <div className={classes.padding}>
         <Paper className={classes.paper} variant="outlined">
+                   
          <Typography variant="h6" style={{ paddingBottom: '20px' }}>Billetterie</Typography>
                 <Formik
                     initialValues={{
@@ -81,22 +103,21 @@ export const Billetterie = () => {
                         setTimeout(() => {
                             localStorage.setItem('billetterie',JSON.stringify(values));
                             axios.post("http://localhost:56407/api/Evenements", {
-                                name: event.nom,
-                                description: event.description,
-                                theme: event.theme,
-                                type: event.type,
+                                name: events.nom,
+                                description: events.description,
+                                theme: events.theme,
+                                type: events.type,
                                 startDate: values.date_debut,
                                 endDate: values.date_fin,
-                                // typeTicket: values.type_ticket,
-                                // prixTicket: values.prix_ticket,
-                                // tarifTicket: values.tarif_ticket,
-                                menuIds: [
-                                    0
-                                ],
-                                commandeItems: [
+                                commandeItems: produit,
+                                createParticipants: participants,
+                                createTickets: [
                                     {
-                                        quantite: 1,
-                                        lieuxId: panier.lieux.addedItems,
+                                        nomParticipant: participants.nomParticipant,
+                                        prenomParticipant: participants.prenomParticipant,
+                                        typeTicket: values.type_ticket,
+                                        prixTicket: values.prix_ticket,
+                                        tarifTicket: values.tarif_ticket,
                                     }
                                 ]
                             })

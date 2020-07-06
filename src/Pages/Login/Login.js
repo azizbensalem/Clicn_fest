@@ -13,7 +13,6 @@ import { useHistory } from 'react-router-dom';
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { FormHelperText } from "@material-ui/core";
-import auth from '../../Components/Auth';
 import { LinearDeterminate } from '../../Components/LinearDeterminate';
 import AuthService from "../../Services/AuthService";
 

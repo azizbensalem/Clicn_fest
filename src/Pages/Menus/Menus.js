@@ -4,7 +4,7 @@ import ScrollTop from '../../Components/Footer/ScrollTop';
 import MenuImage from '../../Images/Menus.png';
 import Pagination from "@material-ui/lab/Pagination";
 import ProductMenus from "./ProductMenus";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { TotalSb } from "../../Components/Footer/TotalSb";
 import { Menu } from "../../Components/Tabs";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -16,6 +16,7 @@ import {
     FormControl, Typography, Container, Paper, Grid, ExpansionPanel, ExpansionPanelDetails,
     ExpansionPanelSummary, FormGroup, FormControlLabel, Checkbox
 } from "@material-ui/core";
+import { fetchMenu } from "../../Data/actions/menuActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,16 +70,20 @@ export const Menus = () => {
         const classes = useStyles();
         const [searchTerm, setSearchTerm] = React.useState("");
         const [searchResults, setSearchResults] = React.useState([]);
+        const dispatch = useDispatch();
         const handleChange = (event) => {
           setSearchTerm(event.target.value);
         };
         const data = useSelector((state) => state.menu.items);
         useEffect(() => {
           const results = data.filter((item) =>
-            item.nom_menu.toString().toLowerCase().includes(searchTerm)
+            item.name.toString().toLowerCase().includes(searchTerm)
           );
           setSearchResults(results);
         }, [searchTerm]);
+        useEffect(() => {
+          dispatch(fetchMenu());
+        }, []); 
         const [pages, setPages] = React.useState(1);
         const currentPosts = searchResults.slice(pages * 5 - 5, pages * 5);
         const change = (event, value) => {
@@ -148,7 +153,7 @@ export const Menus = () => {
                     <div>
                       <ProductMenus
                         image={data.img}
-                        titre={data.nom_menu}
+                        titre={data.name}
                         volume=""
                         type={data.type}
                         prix={data.prix}

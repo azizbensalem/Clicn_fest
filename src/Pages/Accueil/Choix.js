@@ -42,21 +42,21 @@ export default function ButtonBases() {
       <div className={classes.root}>
         <Container>
           <Grid container spacing={3}>
-            <Grid item lg={4} md={4} sm={6} xs={12}>
+            <Grid item lg={6} md={6} sm={6} xs={12}>
               <Button className={classes.image} href="#/evenements/lieux"
               style={{ backgroundImage: `url(${lieu})` }}>
               <div className={classes.image} style={{ backgroundColor: '#111111', opacity: '0.5' }} />
               <Typography variant="h5" className={classes.text}>LIEUX</Typography>
               </Button>    
             </Grid>
-            <Grid item lg={4} md={4} sm={6} xs={12}>
+            <Grid item lg={6} md={6} sm={6} xs={12}>
               <Button className={classes.image} href="#/evenements/menus"
               style={{ backgroundImage: `url(${menu})` }}>
                 <div className={classes.image} style={{ backgroundColor: '#111111', opacity: '0.5' }} />
                 <Typography variant="h5" className={classes.text}>MENUS</Typography>
               </Button>    
             </Grid>
-            <Grid item lg={4} md={4} sm={6} xs={12}>
+            <Grid item lg={6} md={6} sm={6} xs={12}>
               <Button className={classes.image} href="#/evenements/boissons"
               style={{ backgroundImage: `url(${boissons})` }}>
                 <div className={classes.image} style={{ backgroundColor: '#111111', opacity: '0.5' }} />
@@ -70,13 +70,13 @@ export default function ButtonBases() {
                 <Typography variant="h5" className={classes.text}>EXTRAS</Typography>
               </Button>    
             </Grid>
-            <Grid item lg={6} md={6} sm={6} xs={12}>
+            {/* <Grid item lg={6} md={6} sm={6} xs={12}>
               <Button className={classes.image} href="#/evenements/communication"
               style={{ backgroundImage: `url(${communication})` }}>
                 <div className={classes.image} style={{ backgroundColor: '#111111', opacity: '0.5' }} />
                 <Typography variant="h5" className={classes.text}>COMMUNICATION</Typography>
               </Button>    
-            </Grid>
+            </Grid> */}
             {/* <Grid item lg={4} md={4} sm={6} xs={12}>
               <Button className={classes.image} 
               style={{ backgroundImage: `url(${communication})` }}>

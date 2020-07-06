@@ -7,27 +7,17 @@ import {
 } from "../actions/action-types/menu-actions";
 
 const initState = {
-  items: [
-    {
-      id: 1,
-      nom_menu: "Pack mabs",
-      description: "Hamburger + Coca 0,5L",
-      prix: 500,
-      type: "Boisson gazeuse",
-      img:
-        "https://sc01.alicdn.com/kf/UTB8wEL.nFPJXKJkSahVq6xyzFXaG/Newly-Stock-Coca-Cola-Soft-Drink-In.jpg",
-    },
-  ],
+  items: [],
   addedItems: [],
   total: 0,
 };
 const menuReducer = (state = initState, action) => {
-  // if (action.type === FETCH_POSTS_SUCCESS) {
-  //           return {
-  //             ...state,
-  //             items: action.payload.posts,
-  //           };
-  // }
+  if (action.type === GET_MENU) {
+            return {
+              ...state,
+              items: action.payload.posts,
+            };
+  }
     if (action.type === ADD_MENU) {
       let addedItem = state.items.find((item) => item.id === action.id);
       let existed_item = state.addedItems.find((item) => action.id === item.id);

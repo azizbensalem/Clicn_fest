@@ -7,20 +7,23 @@ import {
 } from "./action-types/menu-actions";
 import UserService from "../../Services/UserService";
 
-// export const fetchPosts = () => {
-//   UserService.getProduit().then((response) => {
-//     fetchPostsSuccess(response.data);
-//   });
-// };
+export const fetchMenu = () => {
+  return (dispatch) => {
+    return UserService.getMenu()
+      .then(((response) => {
+        dispatch(fetchMenuSuccess(response.data));
+      }))
+  };
+};
 
-// export const fetchPostsSuccess = (posts) => {
-//   return {
-//     type: GET_PRODUIT,
-//     payload: {
-//       posts,
-//     },
-//   };
-// };
+export const fetchMenuSuccess = (posts) => {
+  return {
+    type: GET_MENU,
+    payload: {
+      posts,
+    },
+  };
+};
 
 export const addMenu = (id) => {
   return {

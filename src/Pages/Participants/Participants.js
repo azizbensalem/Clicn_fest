@@ -40,9 +40,9 @@ export const Invite = () => {
     const validationSchema = Yup.object().shape({
       participant: Yup.array().of(
         Yup.object().shape({
-          nom: Yup.string().required("Nom est obligatoire"),
-          prenom: Yup.string().required("Prénom est obligatoire"),
-          email: Yup.string().email("Email doit etre sous forme 'exemple@exemple.com'").required("Email est obligatoire"),
+          nomParticipant: Yup.string().required("Nom est obligatoire"),
+          prenomParticipant: Yup.string().required("Prénom est obligatoire"),
+          emailParticipant: Yup.string().email("Email doit etre sous forme 'exemple@exemple.com'").required("Email est obligatoire"),
         })
       )
     });
@@ -56,17 +56,17 @@ export const Invite = () => {
               initialValues={{
                 participant: [
                   {
-                    id: Math.random(),
-                    nom: "",
-                    prenom: "",
-                    email: ""
+                    // id: Math.random(),
+                    nomParticipant: "",
+                    prenomParticipant: "",
+                    emailParticipant: ""
                   }
                 ]
               }}
               validationSchema={validationSchema}
               onSubmit={values => {
                 console.log("onSubmit", JSON.stringify(values, null, 2));
-                localStorage.setItem("participants", JSON.stringify(values));
+                localStorage.setItem("participants", JSON.stringify(values.participant));
                 history.push('/evenements/billetterie')
               }}
             >
@@ -77,15 +77,15 @@ export const Invite = () => {
                       <div>
                         {values.participant.length > 0 ?
                           values.participant.map((p, index) => {
-                            const nom = `participant[${index}].nom`;
+                            const nom = `participant[${index}].nomParticipant`;
                             const touchedNom = getIn(touched, nom);
                             const errorNom = getIn(errors, nom);
 
-                            const prenom = `participant[${index}].prenom`;
+                            const prenom = `participant[${index}].prenomParticipant`;
                             const touchedPrenom = getIn(touched, prenom);
                             const errorPrenom = getIn(errors, prenom);
 
-                            const email = `participant[${index}].email`;
+                            const email = `participant[${index}].emailParticipant`;
                             const touchedEmail = getIn(touched, email);
                             const errorEmail = getIn(errors, email);
 
@@ -164,7 +164,9 @@ export const Invite = () => {
                                     type="button"
                                     variant="outlined"
                                     onClick={() =>
-                                      push({ id: Math.random(), nom: "", prenom: "", email: "" })
+                                      push({ 
+                                      // id: Math.random(), 
+                                      nomParticipant: "", prenomParticipant: "", emailParticipant: "" })
                                     }
                                   >
                                     <AddCircleIcon color="primary" />
@@ -179,7 +181,9 @@ export const Invite = () => {
                             color="primary"
                             variant="outlined"
                             onClick={() =>
-                              push({ id: Math.random(), nom: "", prenom: "", email: "" })
+                              push({ 
+                                // id: Math.random(),
+                               nomParticipant: "", prenomParticipant: "", emailParticipant: "" })
                             }
                           >
                             Ajouter un participant

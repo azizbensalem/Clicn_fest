@@ -8,7 +8,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import EventIcon from '@material-ui/icons/Event';
 import AddBoxIcon from '@material-ui/icons/AddBox';
-import auth from '../Auth';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { LinearDeterminate } from '../LinearDeterminate';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
@@ -68,7 +67,7 @@ export default function NavbarMobile(props) {
 
     const Logout = () => {
         AuthService.logout();
-        auth.logout(window.location.reload("/"));
+        window.location.reload("/");
     }
     const toggleDrawer = (side, open) => event => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {

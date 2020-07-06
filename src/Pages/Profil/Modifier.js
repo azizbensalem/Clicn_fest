@@ -9,6 +9,8 @@ import * as Yup from "yup";
 import { FormHelperText } from "@material-ui/core";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import axios from "axios";
+import AuthService from '../../Services/AuthService';
 
 
 const useStyles = makeStyles(theme => ({
@@ -53,6 +55,7 @@ const useStyles = makeStyles(theme => ({
 }));
 export const Modifier = () => {
     const classes = useStyles();
+    const profil = AuthService.getCurrentUser();
     return (
         <div>
             <AppBar />
@@ -62,8 +65,8 @@ export const Modifier = () => {
             <div style={{ display: 'flow-root' }}>
                 <Formik
                     initialValues={{
-                        nom: "Hello World",
-                        prenom: "Hello World",
+                        nom: profil.lastName,
+                        prenom: profil.firstName,
                         email: "foulenelfouleni@gmail.com",
                         tel: "Hello World",
                         img: "",
@@ -71,9 +74,18 @@ export const Modifier = () => {
                     }}
                     onSubmit={(values, { setSubmitting }) => {
                         setTimeout(() => {
-                            window.location.replace('clicnfest#/monprofil')
+                            axios.put(`http://localhost:56407/api/Users/`+profil.id, {
+                               firstName: values.prenom,
+                               lastName: values.nom,
+                            })
+                                .then((response) => {
+                                    console.log(response);
+                                    window.location.replace('clicnfest#/monprofil')
+                                }, (error) => {
+                                    console.log(error);
+                                });
                             setSubmitting(false);
-                        }, 500);
+                        }, 10);
                     }}
                     validationSchema={Yup.object().shape({
                         nom: Yup.string().required("Ce champ est obligatoire."),
@@ -102,7 +114,7 @@ export const Modifier = () => {
                                         : <img
                                             className={classes.img}
                                             src={values.img} />}
-                                    <Typography variant="h5">{values.prenom} {values.nom}</Typography>
+                                    <Typography variant="h5">{profil.firstName} {profil.lastName}</Typography>
                                 </div>
                                 <Card className={classes.card} variant="outlined">
                                     <CardContent>

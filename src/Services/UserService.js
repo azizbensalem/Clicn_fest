@@ -11,20 +11,12 @@ const getLieux = () => {
   return axios.get(API_URL + "Lieux", { headers: authHeader() });
 };
 
-const postEvent = (description , theme, type, startDate, endDate, typeTicket, prixTicket, 
-tarifTicket , produitId , quantite , prestataireId , menuId, lieuxId ) => {
-  axios.post("http://localhost:56407/api/Evenements", {
-    description: description,
-  })
-    .then((response) => {
-      console.log(response);
-    }, (error) => {
-      console.log(error);
-    });
-}
+const getMenu = () => {
+  return axios.get(API_URL + "Menus", { headers: authHeader() });
+};
 
 export default {
   getProduit,
   getLieux,
-  postEvent,
+  getMenu,
 };
