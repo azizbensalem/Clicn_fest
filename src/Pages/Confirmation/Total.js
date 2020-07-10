@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from "react-redux";
 import { Button, Typography } from '@material-ui/core';
+import { useLocation } from 'react-router';
 
 
 export const Somme = () => {
@@ -8,8 +9,14 @@ export const Somme = () => {
     const totalMenus = useSelector(state => state.menu.total);
     const totalProduits = useSelector(state => state.produit.total);
     const totalPrestataire = useSelector(state => state.prestataire.total);
-    const total = totalLieux + totalMenus + totalProduits + totalPrestataire;
-    return total;
+    let location = useLocation();
+    if (location.pathname == '/produits') {
+        const total = totalProduits;
+        return total;
+    } else {
+        const total = totalLieux + totalMenus + totalProduits + totalPrestataire;
+        return total;
+    }
 };
 
 export const Total = () => {

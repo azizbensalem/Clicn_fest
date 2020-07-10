@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
+import { Link } from 'react-router-dom';
 import Typography from "@material-ui/core/Typography";
 import TextField from '@material-ui/core/TextField';
 import { isMobile, isMobileOnly } from "react-device-detect";
@@ -51,11 +52,21 @@ const useStyles = makeStyles(theme => ({
     backgroundRepeat: 'no-repeat',
     display: 'flex',
   },
+  link: {
+    margin: theme.spacing(1),
+  },
 }));
 
 export default function Inscription() {
     const classes = useStyles();
     const history = useHistory();
+    const [prog, setProg] = React.useState(false);
+    const progress = (link) => {
+      setProg(true);
+      setTimeout(() => {
+        history.push(link);
+      }, 4000);
+    };
     return (
       <div className={classes.Background}>
         <Grid style={{ margin: "auto", padding: "10px" }}>
@@ -275,7 +286,13 @@ export default function Inscription() {
                     );
                   }}
                 </Formik>        
-
+                <div className={classes.link}>
+                  <Typography className={classes.link}>
+                    <Link style={{ textDecoration: "none" }} onClick={() => history.push('/login')}>
+                      Se connecter
+                    </Link>
+                  </Typography>
+                </div>
               </CardContent>
             </Card>
           </Grid>

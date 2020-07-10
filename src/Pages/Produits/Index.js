@@ -71,20 +71,13 @@ export const Produits = () => {
    setSearchTerm(event.target.value);
  };
  const data = useSelector((state) => state.produit.items);
- useEffect(() => {
-   const results = data.filter((item) =>
-     item.name.toString().toLowerCase().includes(searchTerm)
-   );
-   setSearchResults(results);
- }, [searchTerm]);
- useEffect(() => {
-   dispatch(fetchProducts());
- }, []); 
- const [pages, setPages] = React.useState(1);
- const currentPosts = searchResults.slice(pages * 5 - 5, pages * 5);
- const change = (event, value) => {
-   setPages(value);
- };
+  useEffect(() => {
+    dispatch(fetchProducts());
+    const results = data.filter((item) =>
+      item.name.toString().toLowerCase().includes(searchTerm)
+    );
+    setSearchResults(results);
+  }, [data]);
     return (
       <div>
           <div
@@ -141,8 +134,8 @@ export const Produits = () => {
                 </ExpansionPanel>
               </Grid>
               <Grid item lg={8} style={{ width: "100%" }}>
-                {currentPosts.length > 0 ? (
-                  currentPosts.map((data) => (
+              {searchResults.length > 0 ? (
+                searchResults.map((data) => (
                     <div>
                       <ProductProduit
                         image={data.img}
@@ -160,14 +153,6 @@ export const Produits = () => {
                     Aucun résultat trouvé
                   </Typography>
                 )}
-                {searchResults.length > 5 ? (
-                  <Pagination
-                    count={Math.round(searchResults.length / 5)}
-                    page={pages}
-                    onChange={change}
-                    color="primary"
-                  />
-                ) : null}
               </Grid>
             </Grid>
           </Container>
@@ -175,4 +160,4 @@ export const Produits = () => {
         <ScrollTop />
       </div>
     );
-};
+}

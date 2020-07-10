@@ -126,6 +126,7 @@ export const Billetterie = () => {
                                 }, (error) => {
                                     console.log(error);
                                 });
+                            history.push('/mes_evenements');
                             setSubmitting(false);
                         }, 500);
                     }}

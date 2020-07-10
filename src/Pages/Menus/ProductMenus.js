@@ -5,14 +5,15 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Detail } from '../../Components/Detail';
-import { addMenu , removeMenu } from '../../Data/actions/menuActions';
+import {addMenu, removeMenu, subtractQuantityMenu,
+addQuantityMenu } from '../../Data/actions/menuActions';
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {Rate} from '../../Components/Rate';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { IconButton, Grow } from '@material-ui/core';
+import { IconButton, Grow, TextField, Link, Button } from '@material-ui/core';
 
 
 const useStyles = makeStyles(theme => ({
@@ -52,7 +53,6 @@ const useStyles = makeStyles(theme => ({
 const ProductMenus = ({ id, image, titre, volume , type , prix , description , quantity , item}) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -66,6 +66,32 @@ const ProductMenus = ({ id, image, titre, volume , type , prix , description , q
     const supprimer = (id) => {
         dispatch(removeMenu(id));
     }
+    const handleChange = (event) => {
+        setValue(event.target.value);
+    };
+    const handleUpdate = (quantity, value, id) => {
+        let ancValue = quantity;
+        let newValue = value;
+        console.log(id)
+        let updatedValue = ancValue - newValue;
+        if (updatedValue > 0) {
+            for (let index = 0; index < updatedValue; index++) {
+                dispatch(subtractQuantityMenu(id));
+            }
+        }
+        else
+            if (updatedValue < 0) {
+                for (let index = 0; index < -updatedValue; index++) {
+                    dispatch(addQuantityMenu(id));
+                }
+            }
+            else {
+                for (let index = 0; index < updatedValue; index++) {
+                    dispatch(subtractQuantityMenu(id));
+                }
+            }
+    }
+    const [value, setValue] = React.useState(1);
     const items = useSelector(state => state.menu.addedItems);
     const results = items.filter(item =>
         item.id.toString().toLowerCase().includes(id)
@@ -79,9 +105,35 @@ const ProductMenus = ({ id, image, titre, volume , type , prix , description , q
             >
                 <DeleteForeverIcon color="secondary" />
             </IconButton>   
-    )
-    : 
-    null
+    ) : null
+
+    let inputAdd = results.length ? (
+        <div style={{ display: 'flex' }}>
+        <TextField onChange={handleChange} value={value} style={{ width: '40px' }} /><br></br>
+        <Link to={'#/evenements/menu'}>
+            <Button onClick={() => handleUpdate(1, value, id)}>Confirmer</Button>
+        </Link>
+        </div>
+    ) : null
+
+    const addButton = () => {
+    if (results.length == 0) {
+    return (
+            <IconButton
+                className={classes.spacing}
+                type="button"
+                variant="outlined"
+                onClick={() => ajouter(id)}
+            >
+                <AddCircleIcon style={{ color: '#4caf50' }} />
+            </IconButton>
+        );
+      }
+    }
+
+    React.useEffect((quantity) => {
+        setValue(quantity);
+    }, [])
     return (
             <div key={id}>
                 <Grow in={true}>
@@ -122,7 +174,7 @@ const ProductMenus = ({ id, image, titre, volume , type , prix , description , q
                                                     {volume}
                                                 </Typography>
                                             </Grid>
-                                            <Grid item xs>
+                                            <Grid item xs style={{ display: 'flex'}} >
                                                 <IconButton
                                                     className={classes.spacing}
                                                     type="button"
@@ -131,14 +183,8 @@ const ProductMenus = ({ id, image, titre, volume , type , prix , description , q
                                                 >
                                                     <VisibilityIcon color="primary" />
                                             </IconButton>
-                                                <IconButton
-                                                    className={classes.spacing}
-                                                    type="button"
-                                                    variant="outlined"
-                                                    onClick={() => ajouter(id)}
-                                                >
-                                                    <AddCircleIcon style={{ color: '#4caf50'}} />
-                                                </IconButton>
+                                                {addButton()}
+                                                {inputAdd}
                                                 {addedItems}
                                             </Grid>
                                         </Grid>

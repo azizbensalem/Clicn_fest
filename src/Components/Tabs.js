@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
             display: 'flex',
         },
         alignSelf: 'center',
+        paddingTop: '1%',
     },
     sectionMobile: {
         display: 'flex',

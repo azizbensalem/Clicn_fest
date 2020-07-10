@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import AppBar from '../../Components/Header/Navbar';
 import ScrollTop from '../../Components/Footer/ScrollTop';
 import LieuxImage from '../../Images/Lieux.png';
-import Pagination from "@material-ui/lab/Pagination";
 import ProductLieux from "./ProductLieux";
 import { useSelector, useDispatch } from "react-redux";
 import { TotalSb } from "../../Components/Footer/TotalSb";
@@ -14,7 +13,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { makeStyles } from '@material-ui/core/styles';
 import {
     FormControl, Typography, Container, Paper, Grid, ExpansionPanel, ExpansionPanelDetails,
-    ExpansionPanelSummary, FormGroup, FormControlLabel, Checkbox
+    ExpansionPanelSummary, FormGroup,
 } from "@material-ui/core";
 import { fetchLieux } from "../../Data/actions/lieuxActions";
 
@@ -49,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "21vh",
     fontWeight: "bold",
     fontSize: "6vh",
+    color: "white",
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -68,31 +68,40 @@ const useStyles = makeStyles((theme) => ({
 
 export const Lieux = () => {
         const classes = useStyles();
+        const data = useSelector((state) => state.lieux.items);
         const [searchTerm, setSearchTerm] = React.useState("");
         const [searchResults, setSearchResults] = React.useState([]);
         const dispatch = useDispatch();
         const handleChange = (event) => {
           setSearchTerm(event.target.value);
         };
-        const data = useSelector((state) => state.lieux.items);
+        const [state, setState] = React.useState([]);
+        const handleInputChange = (event) => {
+          const target = event.target;
+          var value = target.value;
+
+          if (target.checked) {
+            state.push(value);
+            console.log(state.toString());
+          } else {
+            state.pop(value);
+            console.log(state.toString());
+          }
+        }  
         useEffect(() => {
+          dispatch(fetchLieux());
           const results = data.filter((item) =>
             item.name.toString().toLowerCase().includes(searchTerm)
           );
-          setSearchResults(results);
-        }, [searchTerm]);
-        useEffect(() => {
-          dispatch(fetchLieux());
-        }, []);
-        const [pages, setPages] = React.useState(1);
-        const currentPosts = searchResults.slice(pages * 5 - 5, pages * 5);
-        const change = (event, value) => {
-          setPages(value);
-        };
-    return (
+          const ville = results.filter((item) =>
+            item.ville.includes(state.toString())
+          );
+          setSearchResults(ville);
+        }, [data]);
+        return (
         <div>
             <AppBar />
-                    <div>
+          <div>
           <Menu value={0} />
           <div
             className={classes.image}
@@ -133,23 +142,21 @@ export const Lieux = () => {
                       component="fieldset"
                       className={classes.formControl}
                     >
-                      {/* {lieu.map((item) => (
                       <FormGroup>
-                        <FormControlLabel
-                          control={<Checkbox value={item.type} />}
-                          name={item.type}
-                          label={item.type}
-                          onChange={console.log(item.type)}
-                        />
+                            <label>
+                              <input type="checkbox" value="Sousse" onChange={handleInputChange} />Sousse
+                            </label>
+                            <label>
+                              <input type="checkbox" value="Carthage" onChange={handleInputChange} />Carthage
+                            </label> 
                       </FormGroup>
-                    ))} */}
                     </FormControl>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
               </Grid>
               <Grid item lg={8} style={{ width: "100%" }}>
-                {currentPosts.length > 0 ? (
-                  currentPosts.map((data) => (
+                {searchResults.length > 0 ? (
+                  searchResults.map((data) => (
                     <div>
                       <ProductLieux
                         image={data.img}
@@ -167,14 +174,6 @@ export const Lieux = () => {
                     Aucun résultat trouvé
                   </Typography>
                 )}
-                {searchResults.length > 5 ? (
-                  <Pagination
-                    count={Math.round(searchResults.length / 5)}
-                    page={pages}
-                    onChange={change}
-                    color="primary"
-                  />
-                ) : null}
               </Grid>
             </Grid>
           </Container>

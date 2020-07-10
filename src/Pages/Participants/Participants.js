@@ -10,6 +10,9 @@ import { Formik, Form, getIn, FieldArray } from "formik";
 import { useHistory } from 'react-router-dom';
 import * as Yup from "yup";
 import { Grid } from '@material-ui/core';
+import CSVReader from "react-csv-reader";
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 
 export const Invite = () => {
@@ -46,12 +49,31 @@ export const Invite = () => {
         })
       )
     });
-
-
+    const [file, setFile] = useState([{}]);
+    const save = (data) => {
+       setFile([
+        {nomParticipant: data.nomParticipant,
+         prenomParticipant: data.prenomParticipant,
+         emailParticipant: data.emailParticipant,}
+       ])
+    }
+      const papaparseOptions = {
+        header: true,
+        dynamicTyping: true,
+        skipEmptyLines: true,
+        transformHeader: (header) => header.replace(/\W/g, "_"),
+      };
+      useEffect(() => {
+          console.log(file);
+      }, [file])
     return (
         <div>
         <Typography variant="h6">Choisir les participants manuellement</Typography>
         <br></br>
+              <CSVReader onFileLoaded={(data) => setFile(data)} 
+              parserOptions={papaparseOptions} />
+              <Button onClick={() => localStorage.setItem("participants", JSON.stringify(file))}>
+                Confirmer</Button>
             <Formik
               initialValues={{
                 participant: [
@@ -63,7 +85,7 @@ export const Invite = () => {
                   }
                 ]
               }}
-              validationSchema={validationSchema}
+              
               onSubmit={values => {
                 console.log("onSubmit", JSON.stringify(values, null, 2));
                 localStorage.setItem("participants", JSON.stringify(values.participant));

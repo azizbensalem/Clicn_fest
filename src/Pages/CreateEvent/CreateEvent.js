@@ -63,14 +63,14 @@ export const CreerEvent = () => {
               <Formik
               initialValues={{
                 nom: name_event,
-                theme: event.theme === null ? '' : event.theme ,
-                type: event.type === null ? '' : event.type,
-                local: event.local === null ? '' : event.local,
+                theme: event === null ? '' : event.theme ,
+                type: event === null ? '' : event.type,
+                local: event === null ? '' : event.local,
                 date: date_event,
-                heure: event.heure === null ? '' : event.heure,
-                description: event.description === null ? '' : event.description,
-                video: event.video === null ? '' : event.video,
-                image: event.image === null ? '' : event.image,
+                heure: event === null ? '' : event.heure,
+                description: event === null ? '' : event.description,
+                video: event === null ? '' : event.video,
+                image: event === null ? '' : event.image,
               }}
               onSubmit={(values, { setSubmitting }) => {
                 setTimeout(() => {

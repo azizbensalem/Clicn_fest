@@ -6,6 +6,7 @@ import { Somme } from '../../Pages/Confirmation/Total';
 import { Confirmation } from '../Confirmation';
 import { Typography, SnackbarContent } from '@material-ui/core';
 import { useSelector } from "react-redux";
+import { useLocation } from 'react-router';
 
 
 const useStyles = makeStyles(theme => ({
@@ -20,6 +21,7 @@ const useStyles = makeStyles(theme => ({
 export const TotalSb = ({ page }) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const location = useLocation();
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -43,15 +45,20 @@ export const TotalSb = ({ page }) => {
                     style={{ backgroundColor: '#4caf50' }} 
                     message={<Typography variant="h6"><Somme />&nbsp;DT</Typography>}
                     action={<Button color="inherit" size="small" onClick={handleClickOpen}
-                    disabled={items == 0 ? true : false}
+                    disabled={location.pathname == '/produits' ? 
+                                (ProduitItems == 0 ? true : false) :
+                                (items == 0 ? true : false)}
                     >
                         Confirmer la commande
                      </Button>}
                 />
             </Snackbar>
-            {items > 0 ?(
-            <Confirmation handleClose={handleClose} open={open} page={page} />
-            ): null }
+            {location.pathname == '/produits' ? 
+                (ProduitItems > 0 ? 
+                    (<Confirmation handleClose={handleClose} open={open} page={page} />) : null) :
+                (items > 0 ?
+                    (<Confirmation handleClose={handleClose} open={open} page={page} />) : null)
+             }
         </div>
     );
 }

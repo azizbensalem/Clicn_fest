@@ -76,19 +76,12 @@ export const Menus = () => {
         };
         const data = useSelector((state) => state.menu.items);
         useEffect(() => {
+          dispatch(fetchMenu());
           const results = data.filter((item) =>
             item.name.toString().toLowerCase().includes(searchTerm)
           );
           setSearchResults(results);
-        }, [searchTerm]);
-        useEffect(() => {
-          dispatch(fetchMenu());
-        }, []); 
-        const [pages, setPages] = React.useState(1);
-        const currentPosts = searchResults.slice(pages * 5 - 5, pages * 5);
-        const change = (event, value) => {
-          setPages(value);
-        };
+        }, [data]);
     return (
       <div>
         <AppBar />
@@ -148,8 +141,8 @@ export const Menus = () => {
                 </ExpansionPanel>
               </Grid>
               <Grid item lg={8} style={{ width: "100%" }}>
-                {currentPosts.length > 0 ? (
-                  currentPosts.map((data) => (
+                {searchResults.length > 0 ? (
+                  searchResults.map((data) => (
                     <div>
                       <ProductMenus
                         image={data.img}
@@ -167,14 +160,6 @@ export const Menus = () => {
                     Aucun résultat trouvé
                   </Typography>
                 )}
-                {searchResults.length > 5 ? (
-                  <Pagination
-                    count={Math.round(searchResults.length / 5)}
-                    page={pages}
-                    onChange={change}
-                    color="primary"
-                  />
-                ) : null}
               </Grid>
             </Grid>
           </Container>

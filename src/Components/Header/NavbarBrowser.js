@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { LinearDeterminate } from '../LinearDeterminate';
 import clicnfest from '../../Images/clicnfest.PNG';
 import AuthService from "../../Services/AuthService";
+import JwtDecode from 'jwt-decode';
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -25,6 +26,19 @@ export default function NavbarBrowser() {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
+    
+    const authVerify = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) { 
+      const jwt_Token_decoded = JwtDecode(user.token);
+      if (jwt_Token_decoded.exp * 1000 < Date.now()) {
+        localStorage.clear();
+        return 0;
+      } else {
+        return 1;
+      }
+    }
+  } 
     const handleProfileMenuOpen = event => {
         setAnchorEl(event.currentTarget);
     };
@@ -43,7 +57,7 @@ export default function NavbarBrowser() {
     const Logout = () => {
         AuthService.logout(window.location.reload("/"));
     };
-    const user = AuthService.getCurrentUser();
+    const user = JSON.parse(localStorage.getItem('user'));
     return (
       <div>
         <AppBar style={{ background: "#d21740" }} variant="outlined">
@@ -51,7 +65,7 @@ export default function NavbarBrowser() {
           <Toolbar>
             <img src={clicnfest} className={classes.img} />
             <div className={classes.grow} />
-            {user && user.token ? (
+            {authVerify() == 1 ? (
               <div>
                 <Button color="inherit" href="#/accueil" >
                   Accueil
@@ -111,9 +125,10 @@ export default function NavbarBrowser() {
               src="https://kwsmdigital.com/wp-content/uploads/2012/08/Facebook-Blank-Photo.jpg"
               style={{ margin: "auto" }}
             />
-            <Typography variant="body2">{user.username}</Typography>
+            <Typography variant="body2"></Typography>
           </MenuItem>
-          <MenuItem onClick={() => progress("/monprofil")}>Mon Profil</MenuItem>
+          <MenuItem onClick={() => progress("/monprofil")}>Mon profil</MenuItem>
+          <MenuItem onClick={() => progress("/mes_achats")}>Mes achats</MenuItem>
           <MenuItem onClick={() => Logout()}>Déconnexion</MenuItem>
         </Menu>
       </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Profiler } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from '../../Components/Header/Navbar';
 import TextField from '@material-ui/core/TextField';
@@ -11,6 +11,11 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import cover from "../../Images/event.jpg";
 import AuthService from '../../Services/AuthService';
+import { useState } from 'react';
+import axios from 'axios';
+import { useEffect } from 'react';
+import authHeader from '../../Services/AuthHeader';
+import JwtDecode from 'jwt-decode';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -56,7 +61,9 @@ const useStyles = makeStyles((theme) => ({
 export const Show = () => {
     const classes = useStyles();
     const history = useHistory();
+    // const [profil, setProfil] = useState([""])
     const profil = AuthService.getCurrentUser();
+    console.log(profil.firstName);
      return(
         <div>
                 <AppBar />
@@ -66,9 +73,9 @@ export const Show = () => {
         <div style={{ display: 'flow-root' }}>
         <Formik
                     initialValues={{
-                        nom: profil.lastName,
+                        nom: profil.firstName,
                         prenom: profil.firstName,
-                        email: "foulenelfouleni@gmail.com",
+                        email: profil.email,
                         tel: "Hello World",
                         img: "",
                         proffession: "Hello World",
@@ -79,14 +86,6 @@ export const Show = () => {
                             setSubmitting(false);
                         }, 500);
                     }}
-                    validationSchema={Yup.object().shape({
-                        nom: Yup.string().required("Ce champ est obligatoire."),
-                        prenom: Yup.string().required("Ce champ est obligatoire."),
-                        email: Yup.string()
-                            .required("Ce champ est obligatoire.")
-                            .email("Email"),
-                        tel: Yup.string().required("Ce champ est obligatoire."),
-                    })}
                 >
                     {props => {
                         const {
@@ -110,7 +109,7 @@ export const Show = () => {
                                             src={values.img} 
                                             alt="profil"
                                             />}                                       
-                                    <Typography variant="h5">{profil.username}</Typography>
+                                    <Typography variant="h5">{profil.userName}</Typography>
                                     <div style={{ padding: '10px' }}>
                                     <input
                                         accept="image/*"
@@ -130,71 +129,37 @@ export const Show = () => {
                                 <CardContent>
                                 <div className={classes.content}>
                                     <TextField
-                                        error={errors.nom && touched.nom && true}
                                         name="nom"
                                         label="Nom"
                                         type="text"
-                                        value={values.nom}
+                                        defaultValue=" "
+                                        value={profil.firstName}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         variant="outlined"
-                                        helperText={
-                                            errors.nom &&
-                                            touched.nom && (
-                                                <FormHelperText error>
-                                                    {errors.nom}
-                                                </FormHelperText>
-                                            )
-                                        }
-                                        InputProps={{
-                                            readOnly: true,
-                                        }}
                                     />
                                     <TextField
-                                        error={errors.prenom && touched.prenom && true}
                                         name="prenom"
                                         label="Prénom"
                                         type="text"
-                                        value={values.prenom}
+                                        defaultValue=" "
+                                        value={profil.lastName}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         variant="outlined"
-                                        helperText={
-                                            errors.prenom &&
-                                            touched.prenom && (
-                                                <FormHelperText error>
-                                                    {errors.prenom}
-                                                </FormHelperText>
-                                            )
-                                        }
-                                        InputProps={{
-                                         readOnly: true,
-                                        }}
                                     />
                                     <br></br>
                                     <TextField
-                                        error={errors.email && touched.email && true}
                                         name="email"
                                         label="Email"
                                         type="text"
-                                        value={values.email}
+                                        defaultValue=" "
+                                        value={profil.email}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         variant="outlined"
-                                        helperText={
-                                            errors.email &&
-                                            touched.email && (
-                                                <FormHelperText error>
-                                                    {errors.email}
-                                                </FormHelperText>
-                                            )
-                                        }
-                                        InputProps={{
-                                        readOnly: true,
-                                        }}
                                     />
                                     <TextField
-                                        error={errors.tel && touched.tel && true}
                                         name="tel"
                                         label="Téléphone"
                                         type="text"
@@ -202,20 +167,8 @@ export const Show = () => {
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         variant="outlined"
-                                        helperText={
-                                            errors.tel &&
-                                            touched.tel && (
-                                                <FormHelperText error>
-                                                    {errors.tel}
-                                                </FormHelperText>
-                                            )
-                                        }
-                                        InputProps={{
-                                        readOnly: true,
-                                        }}
                                     />
                                     <TextField
-                                        error={errors.proffession && touched.proffession && true}
                                         name="proffession"
                                         label="Proffession"
                                         type="text"
@@ -223,17 +176,6 @@ export const Show = () => {
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         variant="outlined"
-                                        helperText={
-                                            errors.proffession &&
-                                            touched.proffession && (
-                                                <FormHelperText error>
-                                                    {errors.proffession}
-                                                </FormHelperText>
-                                            )
-                                        }
-                                        InputProps={{
-                                        readOnly: true,
-                                        }}
                                     />
                                     </div>
                                     </CardContent>

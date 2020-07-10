@@ -15,8 +15,13 @@ const getMenu = () => {
   return axios.get(API_URL + "Menus", { headers: authHeader() });
 };
 
+const getEvent = () => {
+  return axios.get(API_URL + "Evenements", { headers: authHeader() });
+};
+
 export default {
   getProduit,
   getLieux,
   getMenu,
+  getEvent,
 };

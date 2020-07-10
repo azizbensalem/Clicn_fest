@@ -1,4 +1,5 @@
 import axios from "axios";
+import authHeader from "./AuthHeader";
 
 const register = (firstName, lastName, username, email, password) => {
   return axios.post("http://localhost:56407/api/Users/adduser", {
@@ -25,11 +26,18 @@ const login = (username, password) => {
 };
 
 const logout = () => {
-    localStorage.removeItem("user");
+    localStorage.clear();
 };
 
 const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem("user"));
+   return axios.get('http://localhost:56407/api/Users/getcurrentuser', { headers: authHeader() })
+    .then(function (response) {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
 };
 
 export default {

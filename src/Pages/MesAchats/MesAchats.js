@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import AppBar from '../../Components/Header/Navbar';
 import { Event as Table } from './Table';
 import { makeStyles } from "@material-ui/core/styles";
-import { FormControl, InputLabel, Select, Typography, TextField, Container, Paper } from "@material-ui/core";
-import Pagination from '@material-ui/lab/Pagination';
+import { FormControl, InputLabel, Select, Typography, TextField, Container,
+Paper } from "@material-ui/core";
 import cover from "../../Images/event.jpg";
 import UserService from '../../Services/UserService';
 import { useState } from 'react';
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MyEvent() {
+export default function MesAchats() {
     const classes = useStyles();
 
     const inputLabel = React.useRef(null);
@@ -84,7 +84,7 @@ export default function MyEvent() {
       <div>
         <AppBar />
         <div className={classes.image}>
-              <Typography variant="h3" className={classes.title}>MES ÉVÉNEMENTS</Typography>
+              <Typography variant="h3" className={classes.title}>MES ACHATS</Typography>
         </div>
         <Container className={classes.padding}>
           <form noValidate autoComplete="off" className={classes.padding}>

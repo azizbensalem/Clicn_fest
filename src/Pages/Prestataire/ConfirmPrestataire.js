@@ -134,16 +134,13 @@ const ConfirmPrestataire = ({ image, titre, volume, type, prix, description, qua
                             </Grid>
                         </Grid>
                         <Grid item lg={1} direction="column" spacing={2}>
-                            <Typography variant="subtitle1">{quantity == null ? prix : prix * quantity}&nbsp;DT</Typography>
-                            <Grid>
-                                <Typography>Quantité</Typography>
-                                <Link to={page == null ? '/evenements/commande' : '/evenements/'+page}><ArrowLeftIcon onClick={() => { handleSubtractQuantity(id) }} /></Link>
-                                {/* <TextField onChange={handleChange} value={value} style={{ width: '10%' }} /> */}
-                                {quantity}
-                                <Link to={page == null ? '/evenements/commande' : '/evenements/'+page}><ArrowRightIcon onClick={() => { handleAddQuantity(id) }} /></Link><br></br>
-                                {/* <Link to={page == null ? '/evenements/commande' : '/evenements/'+page}>
-                                    <Button onClick={() => handleUpdate(quantity, value, id)}>Click</Button>
-                                </Link> */}
+                            <Grid style={{ textAlign: 'center' }}>
+                                <Typography variant="subtitle1">{quantity == null ? prix : prix * quantity}&nbsp;DT</Typography>
+                                <Typography>Quantité :</Typography>
+                                <TextField onChange={handleChange} value={value} style={{ width: '40px' }} /><br></br>
+                                <Link to={'#/evenements/' + page}>
+                                    <Button onClick={() => handleUpdate(quantity, value, id)}>Confirmer</Button>
+                                </Link>
                             </Grid> 
                         </Grid>
                     </Grid>

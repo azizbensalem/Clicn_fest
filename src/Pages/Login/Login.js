@@ -13,9 +13,13 @@ import { useHistory } from 'react-router-dom';
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { FormHelperText } from "@material-ui/core";
-import { LinearDeterminate } from '../../Components/LinearDeterminate';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import AuthService from "../../Services/AuthService";
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles(theme => ({ 
   root: {
@@ -60,18 +64,19 @@ const useStyles = makeStyles(theme => ({
 export default function Login() {
     const classes = useStyles();
     const history = useHistory();
+    const [open, setOpen] = React.useState(false);
+    const [success, setSuccess] = React.useState(false);
+    const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+      setOpen(false);
+    };
     const [prog, setProg] = React.useState(false);
     const [error, setError] = React.useState(false);
-    const progress = (link) => {
-      setProg(true);
-      setTimeout(() => {
-        history.push(link);
-      }, 4000);
-    };
     return (
       <div>
       <div className={classes.Background}>
-        <LinearDeterminate bool={prog} />
         <Grid className={classes.content}>
           <Grid item xs={12} style={{ textAlign: "center" }}>
             <img src={clicnfest} className={classes.img} />
@@ -96,10 +101,12 @@ export default function Login() {
                         () => {
                           setProg(true);
                           setSubmitting(false);
+                          setSuccess(true);
                           window.location.reload("/");
                         },
                         (error) => {
                           setError(true);
+                          setOpen(true);
                         });
                     },10);
                   }}
@@ -179,9 +186,9 @@ export default function Login() {
                 </Formik>
                 <div className={classes.link}>
                   <Typography className={classes.link}>
-                      <Link style={{ textDecoration: "none" }} onClick={() => progress('/inscription')}>
+                      <Link style={{ textDecoration: "none" }} onClick={() => history.push('/inscription')}>
                       Inscrivez-vous à un compte
-                    </Link>
+                      </Link>
                   </Typography>
                 </div>
               </CardContent>
@@ -189,6 +196,12 @@ export default function Login() {
           </Grid>
         </Grid>
       </div>
+        <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+          <Alert severity="error">Le nom d'utilisateur ou le mot de passe entré ne correspond à aucun compte</Alert>
+        </Snackbar>
+        <Snackbar open={success} autoHideDuration={5000} onClose={handleClose}>
+          <Alert severity="success">La connexion est effectuée avec succès</Alert>
+        </Snackbar>
       </div>
     );
 }

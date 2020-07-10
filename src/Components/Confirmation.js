@@ -8,7 +8,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { CartProduit } from '../Pages/Produits/CartProduit';
 import { CartLieux } from '../Pages/Lieux/CartLieux';
 import { CartMenu } from '../Pages/Menus/CartMenu';
@@ -32,6 +32,16 @@ const styles = (theme) => ({
 export const Confirmation = ({ handleClose , open , page}) => {
     const theme = useTheme();
     const history = useHistory();
+    const location = useLocation();
+    const pages = () => {
+       if (location.pathname == '/produits') {
+           console.log('mes_achats');
+           return 'mes_achats';
+       } else {
+           console.log('evenements/organisation');
+           return '/evenements/organisation';
+       }
+    }
     const fullScreen = useMediaQuery(theme.breakpoints.down('lg'));
     const DialogTitle = withStyles(styles)((props) => {
     const { children, classes, onClose, ...other } = props;
@@ -58,16 +68,24 @@ export const Confirmation = ({ handleClose , open , page}) => {
                     Mon panier
                 </DialogTitle>                
                 <DialogContent style= {{ paddingBottom: '70px'}}>
-                    <CartLieux page={page} />
-                    <CartMenu page={page} />
-                    <CartProduit page={page} />
-                    <CartPrestataire page={page} />
+                    {location.pathname == '/produits' ? (
+                        <>
+                            <CartProduit page={page} />
+                        </>
+                    ) : (
+                        <>
+                            <CartLieux page={page} />
+                            <CartMenu page={page} />
+                            <CartProduit page={page} />
+                            <CartPrestataire page={page} />
+                        </>
+                    )}
                     <Total />
-                <Button variant="contained" 
+                    <Button variant="contained" 
                             color="primary" 
-                            onClick={() => history.push('/evenements/organisation')}
+                            onClick={() => history.push(pages())}
                     >
-                        Confirmer la commande
+                        {location.pathname == '/produits' ? 'Confirmer la commande' : 'Créer un événement'}
                     </Button>
                 </DialogContent>
             </Dialog>

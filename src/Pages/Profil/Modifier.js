@@ -124,7 +124,8 @@ export const Modifier = () => {
                                                 name="nom"
                                                 label="Nom"
                                                 type="text"
-                                                value={values.nom}
+                                                defaultValue=""
+                                                value={profil.lastName}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 variant="outlined"

@@ -13,7 +13,8 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { IconButton, Grow } from '@material-ui/core';
-
+import EventSeatIcon from '@material-ui/icons/EventSeat';
+import LocationCityIcon from '@material-ui/icons/LocationCity';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -52,7 +53,6 @@ const useStyles = makeStyles(theme => ({
 const ProductLieux = ({ id, image, titre, volume , type , prix , description , quantity , item}) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -115,12 +115,18 @@ const ProductLieux = ({ id, image, titre, volume , type , prix , description , q
                                                     {titre}
                                                 </Typography>
                                                 <Rate Data={5} /><br></br>
-                                                <Typography gutterBottom variant="body1">
-                                                    {type}
-                                                </Typography>
-                                                <Typography gutterBottom variant="body1">
-                                                    {volume}
-                                                </Typography>
+                                                <div style={{ display: 'flex' }}>
+                                                    <LocationCityIcon style={{ marginTop: '4px' }} />
+                                                    <Typography gutterBottom variant="body1" style={{ padding: '6px' }}>
+                                                        {volume}
+                                                    </Typography>
+                                                </div>
+                                                <div style={{ display: 'flex' }}>
+                                                    <EventSeatIcon style={{ marginTop: '4px' }} />
+                                                    <Typography gutterBottom variant="body1" style={{ padding: '6px' }}>
+                                                        {type}
+                                                    </Typography>
+                                                </div>
                                             </Grid>
                                             <Grid item xs>
                                                 <IconButton

@@ -110,6 +110,10 @@ export default function NavbarMobile(props) {
                     <ListItemIcon><EventIcon /></ListItemIcon>
                     <ListItemText primary="Mes événements" />
                 </ListItem>
+                <ListItem button onClick={() => progress('/mes_evenements')}>
+                    <ListItemIcon><EventIcon /></ListItemIcon>
+                    <ListItemText primary="Mes achats" />
+                </ListItem>
                 <ListItem button onClick={() => progress('/evenements/organisation')}>
                     <ListItemIcon><AddBoxIcon /></ListItemIcon>
                     <ListItemText primary="Organiser&nbsp;un&nbsp;évènement" />
