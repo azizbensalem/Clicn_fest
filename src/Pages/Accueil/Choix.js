@@ -60,14 +60,14 @@ export default function ButtonBases() {
               <Button className={classes.image} href="#/evenements/boissons"
               style={{ backgroundImage: `url(${boissons})` }}>
                 <div className={classes.image} style={{ backgroundColor: '#111111', opacity: '0.5' }} />
-                <Typography variant="h5" className={classes.text}>BOISSONS</Typography>
+                <Typography variant="h5" className={classes.text}>PRODUITS</Typography>
               </Button>    
             </Grid>
             <Grid item lg={6} md={6} sm={6} xs={12}>
               <Button className={classes.image} href="#/evenements/extras"
               style={{ backgroundImage: `url(${extra})` }}>
                 <div className={classes.image} style={{ backgroundColor: '#111111', opacity: '0.5' }} />
-                <Typography variant="h5" className={classes.text}>EXTRAS</Typography>
+                <Typography variant="h5" className={classes.text}>PRESTATAIRES</Typography>
               </Button>    
             </Grid>
             {/* <Grid item lg={6} md={6} sm={6} xs={12}>

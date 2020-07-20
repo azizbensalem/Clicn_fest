@@ -14,6 +14,8 @@ import { CartLieux } from '../Pages/Lieux/CartLieux';
 import { CartMenu } from '../Pages/Menus/CartMenu';
 import { CartPrestataire } from '../Pages/Prestataire/CartPrestataire';
 import { Total } from '../Pages/Confirmation/Total';
+import axios from "axios";
+import { useSelector } from 'react-redux';
 
 
 const styles = (theme) => ({
@@ -35,12 +37,28 @@ export const Confirmation = ({ handleClose , open , page}) => {
     const location = useLocation();
     const pages = () => {
        if (location.pathname == '/produits') {
-           console.log('mes_achats');
            return 'mes_achats';
        } else {
-           console.log('evenements/organisation');
            return '/evenements/organisation';
        }
+    }
+    const produits = useSelector(state => state.produit.addedItems);
+    const [produit, setProduit] = React.useState([]);
+    React.useEffect(() => {
+        produits != null ? produits.map(item =>
+            setProduit(prevState => [...prevState, { quantite: item.quantity, produitId: item.id }])
+        ) : setProduit(null);
+    }, [])
+    const commander = () => {
+        axios.post("http://localhost:56407/api/Commandes", {
+            itemProducts: produit  
+        })
+            .then((response) => {
+                console.log(response);
+            }, (error) => {
+                console.log(error);
+            });
+        history.push('/mes_achats');
     }
     const fullScreen = useMediaQuery(theme.breakpoints.down('lg'));
     const DialogTitle = withStyles(styles)((props) => {
@@ -81,12 +99,26 @@ export const Confirmation = ({ handleClose , open , page}) => {
                         </>
                     )}
                     <Total />
-                    <Button variant="contained" 
-                            color="primary" 
-                            onClick={() => history.push(pages())}
-                    >
-                        {location.pathname == '/produits' ? 'Confirmer la commande' : 'Créer un événement'}
-                    </Button>
+
+                        {location.pathname == '/produits' ? (
+                            <div>
+                            <Button variant="contained"
+                                color="primary"
+                                onClick={() => commander()}
+                            >
+                                  Confirmer la commande
+                            </Button>
+                            </div>
+                        ) : (
+                            <div>
+                                <Button variant="contained"
+                                    color="primary"
+                                    onClick={() => history.push(pages())}
+                                >
+                                  Créer un événement
+                                </Button>
+                            </div>
+                        ) }
                 </DialogContent>
             </Dialog>
         </div>

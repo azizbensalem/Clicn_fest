@@ -128,6 +128,8 @@ export default function NavbarMobile(props) {
     return (
             <div>
             <AppBar style={{ background: '#d21740' }} variant="outlined">
+                {/* <div style={{ position: 'absolute' }}>
+                <AppBar style={{ background: 'transparent', boxShadow: 'none' }}> */}
                 <LinearDeterminate bool={prog} />
                         <Toolbar>
                             <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">

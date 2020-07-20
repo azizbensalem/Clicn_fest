@@ -65,7 +65,7 @@ export default function MyEvent() {
       const result = results.filter(item =>
         item.etat.toString().includes(etat)
       );
-      setSearchResults(result);
+      setSearchResults(results);
     }, [searchTerm , etat]);
     console.log(searchResults);
     const etatChange = event => {
@@ -80,6 +80,7 @@ export default function MyEvent() {
     const change = (event, value) => {
       setPages(value);
     }
+    console.log(event);
     return (
       <div>
         <AppBar />

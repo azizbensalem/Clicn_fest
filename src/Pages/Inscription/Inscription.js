@@ -97,11 +97,11 @@ export default function Inscription() {
                   onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
                       console.log("Logging in", values);
-                      AuthService.register(values.prenom, values.nom, values.username, 
-                        values.name, values.pwd).then(
+                      AuthService.register(values.prenom, values.nom, values.username, values.email,
+                        values.pwd).then(
                         () => {
                           setSubmitting(false);
-                          window.location.reload("/");
+                          window.location.href = "/";
                         },
                         (error) => {
                           console.log(error);

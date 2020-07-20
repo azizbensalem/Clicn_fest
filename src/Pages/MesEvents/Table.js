@@ -55,11 +55,11 @@ export const Event = ({ data }) => {
                   )}
                 </TableCell>
                 <TableCell align="right">
-                  <Tooltip title="Afficher" placement="top">
+                  {/* <Tooltip title="Afficher" placement="top">
                     <IconButton>
                       <VisibilityIcon color="primary" />
                     </IconButton>
-                  </Tooltip>
+                  </Tooltip> */}
                    <Tooltip title="Payer" placement="top">
                     <IconButton href="#/payement">
                       <PaymentIcon style={{ color: '#4caf50' }} />

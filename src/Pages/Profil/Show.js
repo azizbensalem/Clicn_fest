@@ -61,9 +61,12 @@ const useStyles = makeStyles((theme) => ({
 export const Show = () => {
     const classes = useStyles();
     const history = useHistory();
-    // const [profil, setProfil] = useState([""])
-    const profil = AuthService.getCurrentUser();
-    console.log(profil.firstName);
+    const [profil, setProfil] = useState({})
+    useEffect(() => {
+        AuthService.getCurrentUser().then((result) =>
+          setProfil(result)
+        );
+    }, [profil])
      return(
         <div>
                 <AppBar />
@@ -76,9 +79,9 @@ export const Show = () => {
                         nom: profil.firstName,
                         prenom: profil.firstName,
                         email: profil.email,
-                        tel: "Hello World",
+                        tel: "71777777",
                         img: "",
-                        proffession: "Hello World",
+                        proffession: "Homme d'affaire",
                     }}
                     onSubmit={(values, { setSubmitting }) => {
                         setTimeout(() => {
@@ -159,24 +162,6 @@ export const Show = () => {
                                         onBlur={handleBlur}
                                         variant="outlined"
                                     />
-                                    <TextField
-                                        name="tel"
-                                        label="Téléphone"
-                                        type="text"
-                                        value={values.tel}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        variant="outlined"
-                                    />
-                                    <TextField
-                                        name="proffession"
-                                        label="Proffession"
-                                        type="text"
-                                        value={values.proffession}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        variant="outlined"
-                                    />
                                     </div>
                                     </CardContent>
                                     <div style={{ textAlign: "center" , marginBottom: "20px"}}>
@@ -189,14 +174,14 @@ export const Show = () => {
                                     >
                                         Modifier
                                     </Button>
-                                    <Button
+                                    {/* <Button
                                             color="primary"
                                             variant="contained"
                                             style={{ margin: '5px' }}
                                             onClick={() => history.push('/monprofil/password')}
                                     >
                                         Changer mot de passe
-                                    </Button>
+                                    </Button> */}
                                 </div>
                          </Card>
                         </form>

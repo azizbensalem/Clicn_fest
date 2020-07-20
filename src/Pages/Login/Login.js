@@ -16,6 +16,7 @@ import { FormHelperText } from "@material-ui/core";
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import AuthService from "../../Services/AuthService";
+import AppBar from '../../Components/Header/Navbar';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -76,6 +77,7 @@ export default function Login() {
     const [error, setError] = React.useState(false);
     return (
       <div>
+      <AppBar props={'login'}/>
       <div className={classes.Background}>
         <Grid className={classes.content}>
           <Grid item xs={12} style={{ textAlign: "center" }}>

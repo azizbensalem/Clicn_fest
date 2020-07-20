@@ -32,7 +32,6 @@ const logout = () => {
 const getCurrentUser = () => {
    return axios.get('http://localhost:56407/api/Users/getcurrentuser', { headers: authHeader() })
     .then(function (response) {
-      console.log(response.data);
       return response.data;
     })
     .catch(function (error) {

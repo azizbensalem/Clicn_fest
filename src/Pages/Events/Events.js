@@ -13,6 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import AppBar from '../../Components/Header/Navbar';
+import UserService from '../../Services/UserService';
 
 const useStyles = makeStyles((theme) => ({
     text: {
@@ -58,51 +59,15 @@ export const Events = ({ id, title, rate, description, img }) => {
     const handleChange = event => {
         setSearchTerm(event.target.value);
     };
+    const [event, setEvent] = React.useState([])
     React.useEffect(() => {
-        const results = Events.filter(item =>
-            item.title.toString().toLowerCase().includes(searchTerm)
+        UserService.getEventPublic().then(function (response) { setEvent(response.data) });
+        const results = event.filter(item =>
+            item.description.toString().toLowerCase().includes(searchTerm)
         );
         setSearchResults(results);
-    }, [searchTerm]);
-    const Events = [
-        {
-            id: 1,
-            title: 'After work',
-            rate: 3,
-            description: '',
-            img: 'https://www.eventwala.info/wp-content/uploads/2016/07/Events-1200x630.jpg'
-        },
-        {
-            id: 1,
-            title: 'After work',
-            rate: 3,
-            description: '',
-            img: 'https://www.eventwala.info/wp-content/uploads/2016/07/Events-1200x630.jpg'
-        },
-        {
-            id: 1,
-            title: 'After work',
-            rate: 3,
-            description: '',
-            img: 'https://www.eventwala.info/wp-content/uploads/2016/07/Events-1200x630.jpg'
-        },
-        {
-            id: 1,
-            title: 'After work',
-            rate: 3,
-            description: '',
-            img: 'https://www.eventwala.info/wp-content/uploads/2016/07/Events-1200x630.jpg'
-        },
-        {
-            id: 1,
-            title: 'After work',
-            rate: 3,
-            description: '',
-            img: 'https://www.eventwala.info/wp-content/uploads/2016/07/Events-1200x630.jpg'
-        },
-
-    ]
-
+        }, [searchTerm, event]);
+   
     return (
         <div style={{ backgroundColor: 'white' }}>
             <AppBar />
@@ -129,12 +94,12 @@ export const Events = ({ id, title, rate, description, img }) => {
                                         component="img"
                                         alt="Contemplative Reptile"
                                         height="140"
-                                        image={com.img}
+                                        image="https://www.eventwala.info/wp-content/uploads/2016/07/Events-1200x630.jpg"
                                         title="Réseaux sociaux"
                                     />
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="h2">
-                                            {com.title}
+                                            {com.description}
                                         </Typography>
                                         <Rating
                                             name="simple-controlled"

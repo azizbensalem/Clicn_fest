@@ -83,9 +83,8 @@ export default function SimpleFade() {
                                 <Typography className={classes.section} style={{ fontSize: '16px' }}>
                                     LIEUX<div className={classes.rectangle} />
                                     MENUS<div className={classes.rectangle} />
-                                    BOISSONS<div className={classes.rectangle} />
-                                    EXTRAS<div className={classes.rectangle} />
-                                    COMMUNICATION
+                                    PRODUITS<div className={classes.rectangle} />
+                                    PRESTATAIRES
                                 </Typography>
                             </div>
                         </div>

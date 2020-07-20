@@ -1,6 +1,7 @@
+const user = localStorage.getItem('user')
 const initialState = {
     formValues: {
-        date: "",
+        date: "20/07/2020",
         service: "",
         facebook: "",
         twitter: "",
@@ -10,8 +11,8 @@ const initialState = {
         line1: "",
         line2: "",
         postal_code: "",
-        city: "",
-        country: null,
+        city: "Tunis",
+        country: "Tunisia",
         currency: null,
         amount: "",
     },

@@ -72,7 +72,6 @@ const ProductMenus = ({ id, image, titre, volume , type , prix , description , q
     const handleUpdate = (quantity, value, id) => {
         let ancValue = quantity;
         let newValue = value;
-        console.log(id)
         let updatedValue = ancValue - newValue;
         if (updatedValue > 0) {
             for (let index = 0; index < updatedValue; index++) {
@@ -91,11 +90,11 @@ const ProductMenus = ({ id, image, titre, volume , type , prix , description , q
                 }
             }
     }
-    const [value, setValue] = React.useState(1);
     const items = useSelector(state => state.menu.addedItems);
     const results = items.filter(item =>
         item.id.toString().toLowerCase().includes(id)
-    );    
+    );
+    const [value, setValue] = React.useState(results.quantity);
     let addedItems = results.length ? (
             <IconButton
             className={classes.spacing}
@@ -107,33 +106,10 @@ const ProductMenus = ({ id, image, titre, volume , type , prix , description , q
             </IconButton>   
     ) : null
 
-    let inputAdd = results.length ? (
-        <div style={{ display: 'flex' }}>
-        <TextField onChange={handleChange} value={value} style={{ width: '40px' }} /><br></br>
-        <Link to={'#/evenements/menu'}>
-            <Button onClick={() => handleUpdate(1, value, id)}>Confirmer</Button>
-        </Link>
-        </div>
-    ) : null
-
-    const addButton = () => {
-    if (results.length == 0) {
-    return (
-            <IconButton
-                className={classes.spacing}
-                type="button"
-                variant="outlined"
-                onClick={() => ajouter(id)}
-            >
-                <AddCircleIcon style={{ color: '#4caf50' }} />
-            </IconButton>
-        );
-      }
-    }
-
-    React.useEffect((quantity) => {
-        setValue(quantity);
+    React.useEffect(() => {
+        setValue(results.quantity);
     }, [])
+    console.log(results);
     return (
             <div key={id}>
                 <Grow in={true}>
@@ -183,8 +159,14 @@ const ProductMenus = ({ id, image, titre, volume , type , prix , description , q
                                                 >
                                                     <VisibilityIcon color="primary" />
                                             </IconButton>
-                                                {addButton()}
-                                                {inputAdd}
+                                                <IconButton
+                                                    className={classes.spacing}
+                                                    type="button"
+                                                    variant="outlined"
+                                                    onClick={() => ajouter(id)}
+                                                >
+                                                    <AddCircleIcon style={{ color: '#4caf50' }} />
+                                                </IconButton>
                                                 {addedItems}
                                             </Grid>
                                         </Grid>

@@ -26,10 +26,9 @@ export const Event = ({ data }) => {
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="right">Theme d'événement</TableCell>
-              <TableCell align="right">Type d'évènement</TableCell>
-              <TableCell align="right">Date début</TableCell>
-              <TableCell align="right">Date Fin</TableCell>
+              <TableCell align="right">Nom de commande</TableCell>
+              <TableCell align="right">Date de commande</TableCell>
+              <TableCell align="right">Confirmation</TableCell>
               <TableCell align="right">État</TableCell>
               <TableCell align="right">Action</TableCell>
             </TableRow>
@@ -38,30 +37,29 @@ export const Event = ({ data }) => {
             {data.map((events) => (
               <TableRow key={events.id}>
                 <TableCell align="right" scope="row">
-                  {events.theme}
+                  {events.name}
                 </TableCell>
-                <TableCell align="right">{events.type}</TableCell>
-                <TableCell align="right">{events.startDate}</TableCell>
-                <TableCell align="right">{events.endDate}</TableCell>
+                <TableCell align="right">{events.creationDate}</TableCell>
+                <TableCell align="right">{events.confirmation}</TableCell>
                 <TableCell align="right">
-                  {events.status === "Pending" ? (
+                  {events.isPaid === 1 ? (
                     <Chip
                       size="small"
-                      label={events.status}
-                      style={{ backgroundColor: "#ffc107", color: "black" }}
+                      label="Payée"
+                      style={{ backgroundColor: "#4caf50", color: "white" }}
                     />
-                  ) : (<Chip size="small" label={events.status} 
-                  style={{ backgroundColor: "#4caf50", color: "white" }} />
+                  ) : (<Chip size="small" label="Non payée" 
+                  style={{ backgroundColor: "#ffc107", color: "black" }} />
                   )}
                 </TableCell>
                 <TableCell align="right">
-                  <Tooltip title="Afficher" placement="top">
+                  {/* <Tooltip title="Afficher" placement="top">
                     <IconButton>
                       <VisibilityIcon color="primary" />
                     </IconButton>
-                  </Tooltip>
+                  </Tooltip> */}
                    <Tooltip title="Payer" placement="top">
-                    <IconButton href="#/payement">
+                    <IconButton href="#/payement" onClick={() => localStorage.setItem('id_com', events.id)}>
                       <PaymentIcon style={{ color: '#4caf50' }} />
                     </IconButton>
                   </Tooltip>

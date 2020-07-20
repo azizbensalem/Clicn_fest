@@ -14,6 +14,7 @@ import Select from '@material-ui/core/Select';
 import axios from "axios";
 import { useSelector } from 'react-redux';
 import DataEvent from '../../Data/DataEvent';
+import authHeader from "../../Services/AuthHeader";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -80,7 +81,6 @@ export const Billetterie = () => {
             setLieu(prevState => [...prevState, { quantite: item.id, lieuxId: item.id }])
         ) : setLieu(null);
     }, [])
-    console.log(JSON.stringify(produit));
     return (
     <div>
     <AppBar />
@@ -120,8 +120,8 @@ export const Billetterie = () => {
                                         tarifTicket: values.tarif_ticket,
                                     }
                                 ]
-                            })
-                                .then((response) => {
+                            }, { headers: authHeader() }
+                            ).then((response) => {
                                     console.log(response);
                                 }, (error) => {
                                     console.log(error);

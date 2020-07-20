@@ -47,17 +47,12 @@ const useStyles = makeStyles((theme) => ({
 export default function MesAchats() {
     const classes = useStyles();
 
-    const inputLabel = React.useRef(null);
-    const [labelWidth, setLabelWidth] = React.useState(0);
-    React.useEffect(() => {
-      setLabelWidth(inputLabel.current.offsetWidth);
-    }, []);
     const [searchTerm, setSearchTerm] = React.useState('');
     const [etat, setEtat] = React.useState('');
     const [searchResults, setSearchResults] = React.useState([]);
     const [event, setEvent] = useState([])
     useEffect(() => {
-      UserService.getEvent().then(function(response)
+      UserService.getCommande().then(function(response)
         { setEvent(response.data) });
       const results = event.filter(item =>
         item.type.toString().toLowerCase().includes(searchTerm)
@@ -99,23 +94,6 @@ export default function MesAchats() {
                               value={searchTerm}
                               onChange={handleChange}
                             />
-                          </FormControl>
-                          <FormControl variant="outlined" className={classes.formControl}>
-                                  <InputLabel ref={inputLabel} >
-                                    État
-                                  </InputLabel>
-                                  <Select
-                                    native
-                                    labelId="demo-simple-select-outlined-label"
-                                    id="demo-simple-select-outlined"
-                                    labelWidth={labelWidth}
-                                    onChange={etatChange}
-                                    name="etat"
-                                  >
-                                      <option name="etat" value="Tous">Tous</option>
-                                      <option name="etat" value="Pas encore commencé">Pas encore commencé</option>
-                                      <option name="etat" value="Terminé">Terminé</option>
-                                  </Select>
                           </FormControl>
                 </Paper>
           </form>

@@ -46,7 +46,7 @@ export const Concept = () => {
         <Grid container spacing={3} style={{ paddingTop: "40px" }}>
           <Grid item lg={6} md={6} sm={12} xs={12} className={classes.grid}>
             <Paper className={classes.paper} style={{ marginTop: "98px" }}>
-              <iframe
+              {/* <iframe
                 width="520"
                 height="290"
                 src="https://www.youtube.com/embed/kAzCrORGEQw"
@@ -54,6 +54,14 @@ export const Concept = () => {
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className={classes.video}
+              ></iframe> */}
+              <iframe width="520" 
+              height="290" 
+              src="https://www.youtube.com/embed/NKpS-bbx6Kc" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              className={classes.video}
               ></iframe>
               <Typography>
                 Clic'n Fest est une plateforme pour organiser des événements

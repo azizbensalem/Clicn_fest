@@ -30,7 +30,9 @@ import {
     stripeDataObjectConverter,
     clientSecretDataObjectConverter
 } from '../constants/functions';
-
+import { useHistory } from 'react-router';
+import axios from 'axios';
+import authHeader from '../../../Services/AuthHeader';
 // OVERALL STYLE
 const style = makeStyles(theme => ({
     button: {
@@ -91,27 +93,22 @@ const Steppers = () => {
     };
     const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
     const handleReset = () => setActiveStep(0);
-
+    const history = useHistory();
+    const com_id = localStorage.getItem('id_com');
     const capture = async () => {
-
-        setLoading(true);
-
-        const clientSecretDataObject = clientSecretDataObjectConverter(formValues);
-        const clientSecret = await clientSecretPull(clientSecretDataObject);
-        const cardElement = elements.getElement(CardCvcElement);
-        const stripeDataObject = stripeDataObjectConverter(formValues, cardElement);
-        const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, stripeDataObject);
-
-        if (error) {
-            setCardStatus(false);
-            setCardMessage(error.message)
-        } else if (paymentIntent && paymentIntent.status === "succeeded") {
-            setCardStatus(true);
-            setCardMessage("");
-            dispatch({ type: 'emptyFormValue' });
-        }
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setLoading(false);
+        axios.put(`http://localhost:56407/api/Commandes/` + com_id, {
+            id: com_id,
+            isPaid: 1,
+        }, { headers: authHeader() }
+        ).then(
+            (response) => {
+                console.log(response);
+                window.location.replace("clicnfest#/mes_achats");
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
     }
 
     return (

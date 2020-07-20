@@ -70,8 +70,8 @@ export default function NavbarBrowser() {
                 <Button color="inherit" href="#/accueil" >
                   Accueil
                 </Button>
-                <Button color="inherit" href="#/mes_evenements" >
-                  Mes événements
+                <Button color="inherit" href="#/mes_achats" >
+                  Mes commandes
                 </Button>
                 <Button color="inherit" href="#/evenements/lieux" >
                   Organiser un évènement
@@ -96,6 +96,9 @@ export default function NavbarBrowser() {
               </div>
             ) : (
               <div>
+                <Button color="inherit" href="#/accueil">
+                  Accueil
+                </Button>
                 <Button color="inherit" href="#">
                   Se connecter
                 </Button>
@@ -128,7 +131,7 @@ export default function NavbarBrowser() {
             <Typography variant="body2"></Typography>
           </MenuItem>
           <MenuItem onClick={() => progress("/monprofil")}>Mon profil</MenuItem>
-          <MenuItem onClick={() => progress("/mes_achats")}>Mes achats</MenuItem>
+          <MenuItem onClick={() => progress("/mes_evenements")}>Mes événements</MenuItem>
           <MenuItem onClick={() => Logout()}>Déconnexion</MenuItem>
         </Menu>
       </div>

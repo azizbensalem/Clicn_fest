@@ -63,8 +63,8 @@ export const CreerEvent = () => {
               <Formik
               initialValues={{
                 nom: name_event,
-                theme: event === null ? '' : event.theme ,
-                type: event === null ? '' : event.type,
+                theme: event === null ? 'After Work' : event.theme ,
+                type: event === null ? 'Public' : event.type,
                 local: event === null ? '' : event.local,
                 date: date_event,
                 heure: event === null ? '' : event.heure,

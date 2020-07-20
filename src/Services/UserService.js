@@ -19,9 +19,19 @@ const getEvent = () => {
   return axios.get(API_URL + "Evenements", { headers: authHeader() });
 };
 
+const getEventPublic = () => {
+  return axios.get(API_URL + "Evenements/EvenementsPublic", { headers: authHeader() });
+};
+
+const getCommande = () => {
+  return axios.get(API_URL + "Commandes", { headers: authHeader() });
+};
+
 export default {
   getProduit,
   getLieux,
   getMenu,
   getEvent,
+  getCommande,
+  getEventPublic,
 };
