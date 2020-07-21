@@ -159,7 +159,7 @@ export const Lieux = () => {
                   searchResults.map((data) => (
                     <div>
                       <ProductLieux
-                        image={data.img}
+                        image={data.photo}
                         titre={data.name}
                         volume={data.ville}
                         type={data.capacite}

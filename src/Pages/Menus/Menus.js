@@ -145,7 +145,7 @@ export const Menus = () => {
                   searchResults.map((data) => (
                     <div>
                       <ProductMenus
-                        image={data.img}
+                        image={data.photo}
                         titre={data.name}
                         volume=""
                         type={data.type}

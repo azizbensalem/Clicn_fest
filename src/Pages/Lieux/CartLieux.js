@@ -22,7 +22,7 @@ export const CartLieux = ({ page }) => {
             <div>
                 {items.map(item => (
                         <div className={classes.button}>
-                            <ConfirmLieux image={item.img} titre={item.nom} volume={item.ville}
+                            <ConfirmLieux image={item.photo} titre={item.nom} volume={item.ville}
                                 type={item.capacite} prix={item.prix} quantity={item.quantity}
                                 id={item.id} page={page}/>
                         </div>
