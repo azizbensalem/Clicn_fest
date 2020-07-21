@@ -138,7 +138,7 @@ export const Produits = () => {
                 searchResults.map((data) => (
                     <div>
                       <ProductProduit
-                        image={data.img}
+                        image={data.photo}
                         titre={data.name}
                         volume={data.description}
                         type={data.type}

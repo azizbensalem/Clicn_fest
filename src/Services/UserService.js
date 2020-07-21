@@ -27,11 +27,16 @@ const getCommande = () => {
   return axios.get(API_URL + "Commandes", { headers: authHeader() });
 };
 
+const getCommandeID = (id) => {
+  return axios.get(API_URL + "Commandes/" + id , { headers: authHeader() });
+};
+
 export default {
   getProduit,
   getLieux,
   getMenu,
   getEvent,
   getCommande,
+  getCommandeID,
   getEventPublic,
 };

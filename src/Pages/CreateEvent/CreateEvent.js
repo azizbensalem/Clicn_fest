@@ -75,7 +75,8 @@ export const CreerEvent = () => {
               onSubmit={(values, { setSubmitting }) => {
                 setTimeout(() => {
                   localStorage.setItem("Organisation", JSON.stringify(values));
-                  history.push("/evenements/participants");
+                  const url = values.type == 'Publique' ? "/evenements/billetterie" : "/evenements/participants"
+                  history.push(url);
                   setSubmitting(false);
                 }, 100);
               }}

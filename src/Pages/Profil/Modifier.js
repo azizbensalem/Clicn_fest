@@ -239,7 +239,7 @@ export const Modifier = () => {
                           error={errors.password && touched.password && true}
                           name="password"
                           label="Mot de passe"
-                          type="text"
+                          type="password"
                           value={values.password}
                           onChange={handleChange}
                           onBlur={handleBlur}

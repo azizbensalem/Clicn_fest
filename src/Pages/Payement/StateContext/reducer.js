@@ -1,4 +1,3 @@
-const user = localStorage.getItem('user')
 const initialState = {
     formValues: {
         date: "20/07/2020",

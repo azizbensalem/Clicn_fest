@@ -61,7 +61,7 @@ export const Event = ({ data }) => {
                     </IconButton>
                   </Tooltip> */}
                    <Tooltip title="Payer" placement="top">
-                    <IconButton href="#/payement">
+                    <IconButton href="#/payement" onClick={() => localStorage.setItem('event', events.id )}>
                       <PaymentIcon style={{ color: '#4caf50' }} />
                     </IconButton>
                   </Tooltip>
@@ -79,7 +79,8 @@ export const Event = ({ data }) => {
         <Typography variant="h6" style={{ textAlign: "center" }}>
           Aucun résultat trouvé
         </Typography>
-      )}
+      )
+      }
     </TableContainer>
   );
 }

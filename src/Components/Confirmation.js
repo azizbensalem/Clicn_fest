@@ -16,6 +16,7 @@ import { CartPrestataire } from '../Pages/Prestataire/CartPrestataire';
 import { Total } from '../Pages/Confirmation/Total';
 import axios from "axios";
 import { useSelector } from 'react-redux';
+import authHeader from '../Services/AuthHeader';
 
 
 const styles = (theme) => ({
@@ -52,7 +53,7 @@ export const Confirmation = ({ handleClose , open , page}) => {
     const commander = () => {
         axios.post("http://localhost:56407/api/Commandes", {
             itemProducts: produit  
-        })
+        }, { headers: authHeader() })
             .then((response) => {
                 console.log(response);
             }, (error) => {

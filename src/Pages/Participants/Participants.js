@@ -66,14 +66,15 @@ export const Invite = () => {
       useEffect(() => {
           console.log(file);
       }, [file])
+      const [part, setPart] = React.useState([]);
     return (
         <div>
         <Typography variant="h6">Choisir les participants manuellement</Typography>
         <br></br>
               <CSVReader onFileLoaded={(data) => setFile(data)} 
               parserOptions={papaparseOptions} />
-              <Button onClick={() => localStorage.setItem("participants", JSON.stringify(file))}>
-                Confirmer</Button>
+              {/* <Button onClick={() => localStorage.setItem("participants", JSON.stringify(file))}>
+                Confirmer</Button> */}
             <Formik
               initialValues={{
                 participant: [
@@ -85,11 +86,12 @@ export const Invite = () => {
                   }
                 ]
               }}
-              
               onSubmit={values => {
                 console.log("onSubmit", JSON.stringify(values, null, 2));
+                part.concat(JSON.stringify(file));
+                part.concat(JSON.stringify(values.participant));
                 localStorage.setItem("participants", JSON.stringify(values.participant));
-                history.push('/evenements/billetterie')
+                history.push('/evenements/billetterie');
               }}
             >
               {({ values, touched, errors, handleChange, handleBlur, isValid }) => (
