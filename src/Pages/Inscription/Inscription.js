@@ -117,7 +117,6 @@ export default function Inscription() {
                     email: Yup.string()
                       .required("Ce champ est obligatoire.")
                       .email("Email"),
-                    tel: Yup.string().required("Ce champ est obligatoire."),
                     pwd: Yup.string().required("Ce champ est obligatoire."),
                     confirmpwd: Yup.string()
                       .required("Ce champ est obligatoire.")
@@ -216,28 +215,10 @@ export default function Inscription() {
                         />
                         <br></br>
                         <TextField
-                          error={errors.tel && touched.tel && true}
-                          name="tel"
-                          label="Téléphone"
-                          type="text"
-                          value={values.tel}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          variant="outlined"
-                          helperText={
-                            errors.tel &&
-                            touched.tel && (
-                              <FormHelperText error>
-                                {errors.tel}
-                              </FormHelperText>
-                            )
-                          }
-                        />
-                        <TextField
                           error={errors.pwd && touched.pwd && true}
                           name="pwd"
                           label="Mot de passe"
-                          type="text"
+                          type="password"
                           value={values.pwd}
                           onChange={handleChange}
                           onBlur={handleBlur}
@@ -251,14 +232,13 @@ export default function Inscription() {
                             )
                           }
                         />
-                        <br></br>
                         <TextField
                           error={
                             errors.confirmpwd && touched.confirmpwd && true
                           }
                           name="confirmpwd"
                           label="Confirmer mot de passe"
-                          type="text"
+                          type="password"
                           value={values.confirmpwd}
                           onChange={handleChange}
                           onBlur={handleBlur}

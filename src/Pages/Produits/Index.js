@@ -78,6 +78,7 @@ export const Produits = () => {
     );
     setSearchResults(results);
   }, [data]);
+    const url = 'C:/Users/aziz/Desktop/ClicAPI/clicknnfest.api/Resources/Produit/';
     return (
       <div>
           <div
@@ -119,16 +120,6 @@ export const Produits = () => {
                       component="fieldset"
                       className={classes.formControl}
                     >
-                      {/* {lieu.map((item) => (
-                      <FormGroup>
-                        <FormControlLabel
-                          control={<Checkbox value={item.type} />}
-                          name={item.type}
-                          label={item.type}
-                          onChange={console.log(item.type)}
-                        />
-                      </FormGroup>
-                    ))} */}
                     </FormControl>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>

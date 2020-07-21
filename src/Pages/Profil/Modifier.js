@@ -195,26 +195,6 @@ export const Modifier = () => {
                             )
                           }
                         />
-                        {/* <TextField
-                        InputLabelProps={{ shrink: true }} 
-                          error={errors.tel && touched.tel && true}
-                          name="tel"
-                          label="Téléphone"
-                          type="text"
-                          value={values.tel}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          variant="outlined"
-                          helperText={
-                            errors.tel &&
-                            touched.tel && (
-                              <FormHelperText error>
-                                {errors.tel}
-                              </FormHelperText>
-                            )
-                          }
-                        /> */}
-                        <br></br>
                         <TextField
                           InputLabelProps={{ shrink: true }}
                           error={errors.userName && touched.userName && true}
@@ -230,25 +210,6 @@ export const Modifier = () => {
                             touched.userName && (
                               <FormHelperText error>
                                 {errors.userName}
-                              </FormHelperText>
-                            )
-                          }
-                        />
-                        <TextField
-                          InputLabelProps={{ shrink: true }}
-                          error={errors.password && touched.password && true}
-                          name="password"
-                          label="Mot de passe"
-                          type="password"
-                          value={values.password}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          variant="outlined"
-                          helperText={
-                            errors.password &&
-                            touched.password && (
-                              <FormHelperText error>
-                                {errors.password}
                               </FormHelperText>
                             )
                           }

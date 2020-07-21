@@ -30,8 +30,6 @@ export const Event = ({ data }) => {
               <TableCell align="right">Type d'évènement</TableCell>
               <TableCell align="right">Date début</TableCell>
               <TableCell align="right">Date Fin</TableCell>
-              <TableCell align="right">État</TableCell>
-              <TableCell align="right">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -43,34 +41,6 @@ export const Event = ({ data }) => {
                 <TableCell align="right">{events.type}</TableCell>
                 <TableCell align="right">{events.startDate}</TableCell>
                 <TableCell align="right">{events.endDate}</TableCell>
-                <TableCell align="right">
-                  {events.status === "Pending" ? (
-                    <Chip
-                      size="small"
-                      label={events.status}
-                      style={{ backgroundColor: "#ffc107", color: "black" }}
-                    />
-                  ) : (<Chip size="small" label={events.status} 
-                  style={{ backgroundColor: "#4caf50", color: "white" }} />
-                  )}
-                </TableCell>
-                <TableCell align="right">
-                  {/* <Tooltip title="Afficher" placement="top">
-                    <IconButton>
-                      <VisibilityIcon color="primary" />
-                    </IconButton>
-                  </Tooltip> */}
-                   <Tooltip title="Payer" placement="top">
-                    <IconButton href="#/payement" onClick={() => localStorage.setItem('event', events.id )}>
-                      <PaymentIcon style={{ color: '#4caf50' }} />
-                    </IconButton>
-                  </Tooltip>
-                  {/*<Tooltip title="Supprimer" placement="top">
-                    <IconButton>
-                      <DeleteIcon color="secondary" />
-                    </IconButton>
-                  </Tooltip> */}
-                </TableCell>
               </TableRow>
             ))}
           </TableBody>

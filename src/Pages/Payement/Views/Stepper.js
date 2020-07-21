@@ -94,24 +94,15 @@ const Steppers = () => {
     const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
     const handleReset = () => setActiveStep(0);
     const history = useHistory();
-    const com_id = localStorage.getItem('event');
-    const billetterie = JSON.parse(localStorage.getItem('billetterie'));
+    const com_id = localStorage.getItem('id_com');
     const participants = JSON.parse(localStorage.getItem('participants'));
     console.log(participants);
-    console.log(billetterie.date_debut);
     const capture = async () => {
         axios.patch(`http://localhost:56407/api/Evenements/` + com_id, {
                 confirmation: 1,
                 isPaid: 1,
-                startDate: billetterie.date_debut,
-                endDate: billetterie.date_fin,
-                createParticipants: [
-                    {
-                        nomParticipant: participants.nomParticipant,
-                        prenomParticipant: participants.prenomParticipant,
-                        emailParticipant: participants.emailParticipant
-                    }
-                ],
+                status: 1,
+                createParticipants: participants,
         }, { headers: authHeader() }
         ).then(
             (response) => {

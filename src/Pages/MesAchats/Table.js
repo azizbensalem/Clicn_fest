@@ -7,7 +7,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Chip from '@material-ui/core/Chip';
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import { IconButton, Typography, Paper } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 import PaymentIcon from "@material-ui/icons/Payment";
@@ -48,26 +47,16 @@ export const Event = ({ data }) => {
                       label="Payée"
                       style={{ backgroundColor: "#4caf50", color: "white" }}
                     />
-                  ) : (<Chip size="small" label="Non payée" 
+                  ) : (<Chip size="small" label="En attente" 
                   style={{ backgroundColor: "#ffc107", color: "black" }} />
                   )}
                 </TableCell>
                 <TableCell align="right">
-                  {/* <Tooltip title="Afficher" placement="top">
-                    <IconButton>
-                      <VisibilityIcon color="primary" />
-                    </IconButton>
-                  </Tooltip> */}
                    <Tooltip title="Payer" placement="top">
                     <IconButton href="#/payement" onClick={() => localStorage.setItem('id_com', events.id)}>
                       <PaymentIcon style={{ color: '#4caf50' }} />
                     </IconButton>
                   </Tooltip>
-                  {/*<Tooltip title="Supprimer" placement="top">
-                    <IconButton>
-                      <DeleteIcon color="secondary" />
-                    </IconButton>
-                  </Tooltip> */}
                 </TableCell>
               </TableRow>
             ))}

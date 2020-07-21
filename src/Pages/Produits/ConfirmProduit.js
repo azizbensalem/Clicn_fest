@@ -93,7 +93,7 @@ const ConfirmProduit = ({ image, titre, volume, type, prix, description, quantit
         React.useEffect((quantity) => {
             setValue(quantity);
         }, [])
-    
+    const url = 'C:/Users/aziz/Desktop/ClicAPI/clicknnfest.api/Resources/Produit/';
     return (
         <div>
             <Paper className={classes.paper}>

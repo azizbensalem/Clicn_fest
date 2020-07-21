@@ -46,32 +46,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MesAchats() {
     const classes = useStyles();
-
     const [searchTerm, setSearchTerm] = React.useState('');
-    const [etat, setEtat] = React.useState('');
     const [searchResults, setSearchResults] = React.useState([]);
     const [event, setEvent] = useState([])
     useEffect(() => {
       UserService.getCommande().then(function(response)
         { setEvent(response.data) });
       const results = event.filter(item =>
-        item.type.toString().toLowerCase().includes(searchTerm)
+        item.name.toString().toLowerCase().includes(searchTerm)
       );
-      const result = results.filter(item =>
-        item.etat.toString().includes(etat)
-      );
-      setSearchResults(result);
-    }, [searchTerm , etat]);
-    console.log(searchResults);
-    const etatChange = event => {
-      event.target.value == 'Tous' ?
-        setEtat('') : setEtat(event.target.value)
-    };
+      setSearchResults(results);
+    }, [searchTerm , event]);
     const handleChange = event => {
     setSearchTerm(event.target.value);
     };
     const [pages, setPages] = React.useState(1);
-
     const change = (event, value) => {
       setPages(value);
     }
@@ -85,7 +74,7 @@ export default function MesAchats() {
           <form noValidate autoComplete="off" className={classes.padding}>
               <Paper className={classes.paper} variant="outlined">
                           <Typography variant="h6">Recherche</Typography><br></br>
-                          <FormControl variant="outlined">
+                          <FormControl variant="outlined" style={{ width: '100%' }}>
                             <TextField
                               id="outlined-basic"
                               label="Nom d'évènement"
@@ -97,7 +86,7 @@ export default function MesAchats() {
                           </FormControl>
                 </Paper>
           </form>
-          <Table data={event} /><br></br>
+          <Table data={searchResults} /><br></br>
         </Container>
       </div>
     );
